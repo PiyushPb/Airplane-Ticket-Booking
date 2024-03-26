@@ -10,12 +10,12 @@ function Navbar() {
 
   return (
     <header className="bg-white">
-      <nav className="flex justify-between items-center w-[92%] max-w-[1200px] mx-auto mt-5">
+      <nav className="flex justify-between items-center w-full max-w-[1800px] mx-auto mt-5 z-[10]">
         <div className="font-bold text-3xl">Logo</div>
         <div
           className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 ${
-            menuOpen ? "top-[9%]" : "top-[-100%]"
-          } md:w-auto w-full flex items-center px-5`}
+            menuOpen ? "top-[8%]" : "top-[-100%]"
+          } md:w-auto w-full flex items-center px-5 z-[10]`}
         >
           <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
             <li>
@@ -31,16 +31,6 @@ function Navbar() {
             <li>
               <a className="hover:text-gray-500" href="#">
                 Resource
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-gray-500" href="#">
-                Developers
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-gray-500" href="#">
-                Pricing
               </a>
             </li>
           </ul>
