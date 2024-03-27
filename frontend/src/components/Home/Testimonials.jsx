@@ -28,7 +28,7 @@ const Testimonials = () => {
   ];
 
   return (
-    <div className="py-5">
+    <div className="py-5 max-w-[1400px] mx-auto">
       <div>
         {/* TODO: ADD APP NAME HERE */}
         <h1 className="text-[18px]">This is why passengers love us</h1>

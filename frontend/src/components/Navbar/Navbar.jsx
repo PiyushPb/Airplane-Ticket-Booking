@@ -9,7 +9,7 @@ function Navbar() {
   };
 
   return (
-    <header className="bg-white">
+    <header className="bg-white px-[30px] md:px-[30px]">
       <nav className="flex justify-between items-center w-full max-w-[1800px] mx-auto mt-5 z-[10]">
         <div className="font-bold text-3xl">Logo</div>
         <div

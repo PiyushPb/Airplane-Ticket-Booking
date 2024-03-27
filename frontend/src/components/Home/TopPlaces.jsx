@@ -25,7 +25,7 @@ const TopPlaces = () => {
   };
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 max-w-[1400px] mx-auto">
       <div className="mb-5">
         <h1 className="text-[35px] md:text-[50px] font-bold">
           Choose your tour!

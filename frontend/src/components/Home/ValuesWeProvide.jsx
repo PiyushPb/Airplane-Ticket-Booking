@@ -7,7 +7,7 @@ import { CiDiscount1 } from "react-icons/ci";
 
 const ValuesWeProvide = () => {
   return (
-    <div className="py-[50px] max-w-[1300px] mx-auto">
+    <div className="py-[50px] max-w-[1400px] mx-auto">
       <div>
         <h1 className="text-[35px] md:text-[50px] text-center font-bold">
           Top values for you
