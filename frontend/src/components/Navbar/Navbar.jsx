@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,7 +12,9 @@ function Navbar() {
   return (
     <header className="bg-white px-[30px] md:px-[30px]">
       <nav className="flex justify-between items-center w-full max-w-[1800px] mx-auto mt-5 z-[10]">
-        <div className="font-bold text-3xl">Logo</div>
+        <Link to={"/"}>
+          <div className="font-bold text-3xl">Logo</div>
+        </Link>
         <div
           className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 ${
             menuOpen ? "top-[8%]" : "top-[-100%]"
@@ -36,9 +39,11 @@ function Navbar() {
           </ul>
         </div>
         <div className="flex items-center gap-6">
-          <button className="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-            Sign in
-          </button>
+          <Link to={"/login"}>
+            <button className="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
+              Sign in
+            </button>
+          </Link>
           <RxHamburgerMenu
             onClick={toggleMenu}
             name={menuOpen ? "close" : "menu"}
