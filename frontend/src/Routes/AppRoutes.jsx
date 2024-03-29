@@ -7,6 +7,7 @@ import ErrorPage from "../page/ErrorPage";
 import Login from "../page/Login";
 import SignUp from "../page/SignUp";
 import TicketSearchPage from "../page/TicketSearchPage";
+import TicketBooking from "../page/TicketBooking";
 
 const AppRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/search" element={<TicketSearchPage />} />
+        <Route path="/book" element={<TicketBooking />} />
 
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
