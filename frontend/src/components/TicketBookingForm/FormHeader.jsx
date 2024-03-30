@@ -11,7 +11,7 @@ const FormHeader = ({ currentActiveForm }) => {
               currentActiveForm === 0 ? "text-blue-500 font-semibold" : ""
             }`}
           >
-            Traveller Details
+            Seat Booking
           </li>
           <li
             className={`min-w-[50px] flex justify-center items-center ${
@@ -25,7 +25,7 @@ const FormHeader = ({ currentActiveForm }) => {
               currentActiveForm === 1 ? "text-blue-500" : ""
             }`}
           >
-            Seat Reservation
+            Traveller Details
           </li>
           <li
             className={`min-w-[50px] flex justify-center items-center ${
