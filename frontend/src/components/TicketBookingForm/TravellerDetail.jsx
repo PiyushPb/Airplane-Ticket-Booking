@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { countries } from "../../assets/data/Countries";
 import PassengerDataForm from "./PassengerDataForm";
+import { toast } from "react-toastify";
 
-const TravellerDetail = ({ setCurrentActiveForm, numberOfPassengers }) => {
-  // Initialize form data object with keys for each passenger
-  const [formData, setFormData] = useState({});
-
-  // Update form data for a specific passenger
+const TravellerDetail = ({
+  setCurrentActiveForm,
+  numberOfPassengers,
+  formData,
+  setFormData,
+}) => {
   const handlePassengerDataChange = (passengerNumber, data) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -17,11 +19,47 @@ const TravellerDetail = ({ setCurrentActiveForm, numberOfPassengers }) => {
     }));
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+  const requiredFields = {
+    firstName: "First Name",
+    lastName: "Last Name",
+    country: "Country",
+    state: "State",
+    phoneNumber: "Phone Number",
+    email: "Email",
+    dob: "Date of Birth",
+    passportNumber: "Passport Number",
+  };
 
-  // Render passenger forms
+  const validatePassengerData = (formData) => {
+    let isValid = true;
+
+    for (let i = 1; i <= numberOfPassengers; i++) {
+      const passengerKey = `passenger${i}`;
+      const passengerData = formData[passengerKey];
+      if (!passengerData) {
+        toast.error(`Passenger ${i} data is missing`);
+        isValid = false;
+        continue;
+      }
+      for (const [field, displayName] of Object.entries(requiredFields)) {
+        if (!passengerData[field] || passengerData[field].trim() === "") {
+          toast.error(`Please enter passenger ${i} ${displayName}`);
+          isValid = false;
+          break;
+        }
+      }
+    }
+
+    if (Object.keys(formData).length === 0) {
+      toast.error("Fields cannot be kept empty, please fill all fields");
+      isValid = false;
+    }
+
+    if (isValid) {
+      setCurrentActiveForm(2);
+    }
+  };
+
   const travelerForms = [];
   for (let i = 1; i <= numberOfPassengers; i++) {
     travelerForms.push(
@@ -29,7 +67,7 @@ const TravellerDetail = ({ setCurrentActiveForm, numberOfPassengers }) => {
         <PassengerDataForm
           passengerNumber={i}
           handlePassengerDataChange={handlePassengerDataChange}
-          formData={formData[`passenger${i}`] || {}} // Pass form data for this passenger
+          formData={formData[`passenger${i}`] || {}}
         />
       </div>
     );
@@ -47,7 +85,7 @@ const TravellerDetail = ({ setCurrentActiveForm, numberOfPassengers }) => {
         </button>
         <button
           className="bg-blue-300 text-white px-10 py-2 rounded-full hover:bg-blue-500 duration-300"
-          onClick={() => setCurrentActiveForm(2)}
+          onClick={() => validatePassengerData(formData)}
         >
           Next
         </button>

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import AirplaneHead from "../../assets/images/airplaneHead.png";
 
+import { toast } from "react-toastify";
+
 const SeatReservation = ({
   setCurrentActiveForm,
   numberOfPassengers,
@@ -16,6 +18,23 @@ const SeatReservation = ({
   };
 
   const [bookedSeats, setBookedSeats] = useState(["A2", "B5", "D8"]);
+
+  const handleNextClick = () => {
+    if (numberOfPassengers === 0) {
+      toast.warn("Please select atleast one seat to proceed", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      setCurrentActiveForm(1);
+    }
+  };
 
   const handleSeatClick = (row, seat) => {
     if (!bookedSeats.includes(row + seat)) {
@@ -132,9 +151,7 @@ const SeatReservation = ({
       </div>
       <button
         className="bg-blue-300 text-white px-10 py-2 rounded-full hover:bg-blue-500 duration-300 mt-2"
-        onClick={() => {
-          setCurrentActiveForm(1);
-        }}
+        onClick={handleNextClick}
       >
         Next
       </button>

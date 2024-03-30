@@ -12,7 +12,6 @@ const PassengerDataForm = ({
     handlePassengerDataChange(passengerNumber, { [field]: value });
   };
 
-
   return (
     <div className="my-5 bg-white border-[1px] border-gray-200 rounded-[30px] p-5">
       <div>
@@ -34,6 +33,7 @@ const PassengerDataForm = ({
               type="text"
               placeholder="First Name"
               id={`firstName-${passengerNumber}`}
+              value={formData.firstName}
               className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
               onChange={(e) => handleChange(e, "firstName")}
             />
@@ -49,6 +49,7 @@ const PassengerDataForm = ({
               type="text"
               placeholder="Last Name"
               id={`lastName-${passengerNumber}`}
+              value={formData.lastName}
               className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
               onChange={(e) => handleChange(e, "lastName")}
             />
@@ -63,6 +64,7 @@ const PassengerDataForm = ({
             <input
               type="date"
               id={`dob-${passengerNumber}`}
+              value={formData.dob}
               className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
               onChange={(e) => handleChange(e, "dob")}
             />
@@ -78,6 +80,7 @@ const PassengerDataForm = ({
               type="number"
               placeholder="Passport Number"
               id={`passportNumber-${passengerNumber}`}
+              value={formData.passportNumber}
               className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
               onChange={(e) => handleChange(e, "passportNumber")}
             />
@@ -96,6 +99,7 @@ const PassengerDataForm = ({
               id={`country-${passengerNumber}`}
               className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
               onChange={(e) => handleChange(e, "country")}
+              value={formData.country}
             >
               {countries.map((country, index) => (
                 <option key={index} value={country}>
@@ -115,6 +119,7 @@ const PassengerDataForm = ({
               type="text"
               placeholder="State"
               id={`stat-${passengerNumber}`}
+              value={formData.state}
               className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
               onChange={(e) => handleChange(e, "state")}
             />
@@ -132,6 +137,7 @@ const PassengerDataForm = ({
             <input
               type="number"
               id={`phNumber-${passengerNumber}`}
+              value={formData.phoneNumber}
               placeholder="Phone Number"
               className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
               onChange={(e) => handleChange(e, "phoneNumber")}
@@ -148,6 +154,7 @@ const PassengerDataForm = ({
               type="email"
               placeholder="Email"
               id={`email-${passengerNumber}`}
+              value={formData.email}
               className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
               onChange={(e) => handleChange(e, "email")}
             />

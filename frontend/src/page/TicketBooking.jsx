@@ -10,6 +10,7 @@ const TicketBooking = () => {
 
   const [numberOfPassengers, setNumberOfPassengers] = useState(0);
   const [selectedSeats, setSelectedSeats] = useState({});
+  const [formData, setFormData] = useState({});
   return (
     <div className="px-[30px] md:px-[30px]">
       <div className="max-w-[1800px] mx-auto py-5 flex flex-col justify-center items-center lg:flex-row gap-5">
@@ -29,10 +30,16 @@ const TicketBooking = () => {
               <TravellerDetail
                 setCurrentActiveForm={setCurrentActiveForm}
                 numberOfPassengers={numberOfPassengers}
+                formData={formData}
+                setFormData={setFormData}
               />
-            ) : (
-              <ReviewTicket />
-            )}
+            ) : currentActiveForm === 2 ? (
+              <ReviewTicket
+                setCurrentActiveForm={setCurrentActiveForm}
+                selectedSeats={selectedSeats}
+                formData={formData}
+              />
+            ) : null}
           </div>
         </div>
         <div className="w-full lg:w-[30%] bg-blue-200 h-10"></div>
