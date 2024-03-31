@@ -8,6 +8,7 @@ import Login from "../page/Login";
 import SignUp from "../page/SignUp";
 import TicketSearchPage from "../page/TicketSearchPage";
 import TicketBooking from "../page/TicketBooking";
+import Ticket from "../page/Ticket";
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const AppRoutes = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/search" element={<TicketSearchPage />} />
         <Route path="/book" element={<TicketBooking />} />
+        <Route path="/ticket" element={<Ticket />} />
 
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
