@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Link } from "react-router-dom";
+import { authContext } from "../../context/authContext";
 
 function Navbar() {
+  const { user, token } = useContext(authContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -39,11 +41,16 @@ function Navbar() {
           </ul>
         </div>
         <div className="flex items-center gap-6">
-          <Link to={"/login"}>
-            <button className="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-              Sign in
-            </button>
-          </Link>
+          {token && user ? (
+            // TODO: add user profile
+            <p>test</p>
+          ) : (
+            <Link to={"/login"}>
+              <button className="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
+                Sign in
+              </button>
+            </Link>
+          )}
           <RxHamburgerMenu
             onClick={toggleMenu}
             name={menuOpen ? "close" : "menu"}

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { BACKENDURL } from "../Config/Config";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { authContext } from "../context/authContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { dispatch } = useContext(authContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -51,18 +53,28 @@ const Login = () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        // Successful response from backend
-        toast.success("Login successful");
-        localStorage.setItem("token", data.token);
-        navigate("/");
-      } else {
-        // Error response from backend
+      if (!response.ok) {
         toast.error(data.error);
+        return;
+      }
+
+      console.log(response.ok);
+
+      if (response.ok) {
+        toast.success("User logged in successfully");
+
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: {
+            user: data.data,
+            // role: data.role,
+            token: data.token,
+          },
+        });
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
-      // Handle network or other errors
       toast.error("An error occurred. Please try again later.");
     }
   };
