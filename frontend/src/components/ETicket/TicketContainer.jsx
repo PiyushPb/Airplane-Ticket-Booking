@@ -111,7 +111,7 @@ const TicketContainer = () => {
             </div>
             <div className="w-full bg-gray-100 rounded-[15px] p-3 flex justify-center items-center">
               <img
-                src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://www.google.com"
+                src="https://quickchart.io/qr?text=http://localhost:5173/ticket"
                 alt=""
                 className="w-[100px] h-[100px] object-cover"
               />

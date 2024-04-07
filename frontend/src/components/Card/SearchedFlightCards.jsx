@@ -18,7 +18,7 @@ const SearchedFlightCards = () => {
         <div className="flex items-center my-5 lg:my-0">
           <div className="w-[15px] h-[15px] rounded-full bg-blue-300"></div>
           <div className="w-[15px] h-[1px] border-[1px] border-blue-400 border-dashed lg:w-[30px]"></div>
-          <div className="text-[12px] px-2 py-1 text-blue-500 bg-blue-200 rounded-full lg:text-[14px] lg:px-3">
+          <div className="text-[12px] px-2 py-1 text-blue-500 bg-blue-200 rounded-full lg:text-[14px] lg:px-3 text-center">
             12h 50m
           </div>
           <div className="w-[15px] h-[1px] border-[1px] border-blue-400 border-dashed lg:w-[30px]"></div>
@@ -31,7 +31,7 @@ const SearchedFlightCards = () => {
         </div>
       </div>
       <div className="w-full h-fit lg:w-[150px] lg:h-[150px] flex justify-center items-center">
-        <div className="flex flex-row flex-wrap justify-center items-center gap-4 lg:flex-col lg:gap-1">
+        <div className="flex flex-row flex-wrap justify-center items-center gap-4 lg:flex-col lg:gap-1 w-full border-[1px] md:border-0 border-gray-300 rounded-md p-3">
           <p className="text-[14px] text-center">Price</p>
           <p className="text-[18px] font-semibold text-center">₹ 4,345</p>
         </div>
