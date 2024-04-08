@@ -9,6 +9,7 @@ const SeatReservation = ({
   setNumberOfPassengers,
   selectedSeats,
   setSelectedSeats,
+  reservedSeats,
 }) => {
   const seats = {
     A: [8, 7, 6, 5, 4, 3, 2, 1],
@@ -17,7 +18,7 @@ const SeatReservation = ({
     D: [8, 7, 6, 5, 4, 3, 2, 1],
   };
 
-  const [bookedSeats, setBookedSeats] = useState(["A2", "B5", "D8"]);
+  const [bookedSeats, setBookedSeats] = useState(reservedSeats);
 
   const handleNextClick = () => {
     if (numberOfPassengers === 0) {
@@ -105,8 +106,8 @@ const SeatReservation = ({
           selectedSeats[row] && selectedSeats[row].includes(seat)
             ? "text-white bg-blue-500"
             : bookedSeats.includes(row + seat)
-            ? "bg-gray-400 cursor-not-allowed hover:bg-gray-500"
-            : "hover:bg-blue-500 hover:text-white"
+            ? "bg-gray-400 cursor-not-allowed lg:hover:bg-gray-500"
+            : "lg:hover:bg-blue-500 lg:hover:text-white"
         }`}
         onClick={() => handleSeatClick(row, seat)}
       >

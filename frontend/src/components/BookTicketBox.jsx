@@ -1,6 +1,6 @@
 import React from "react";
 
-const BookTicketBox = () => {
+const BookTicketBox = ({ handleFormDataChange, handleFlightSearch }) => {
   return (
     <div className="py-[50px] max-w-[1400px] mx-auto">
       <div className="flex flex-col ">
@@ -19,17 +19,21 @@ const BookTicketBox = () => {
             <div className="flex flex-col p-5 pb-0 xl:pr-0">
               <h1>From</h1>
               <input
+                name="from"
                 type="text"
                 placeholder="Delhi"
                 className="outline-none text-[30px] max-w-[300px]"
+                onChange={handleFormDataChange}
               />
             </div>
             <div className="flex flex-col p-5 border-t-[1px] xl:border-l-[1px] xl:border-t-0 border-gray-300">
               <h1>To</h1>
               <input
+                name="to"
                 type="text"
                 placeholder="Mumbai"
                 className="outline-none text-[30px] max-w-[300px]"
+                onChange={handleFormDataChange}
               />
             </div>
           </div>
@@ -37,8 +41,10 @@ const BookTicketBox = () => {
             <div className="flex flex-col p-5">
               <h1>Departure Date</h1>
               <input
+                name="departDate"
                 type="date"
                 className="outline-none text-[20px] sm:text-[30px] w-full"
+                onChange={handleFormDataChange}
               />
             </div>
           </div>
@@ -46,9 +52,10 @@ const BookTicketBox = () => {
             <div className="flex flex-col p-5 w-full">
               <h1>Flight Type</h1>
               <select
-                name="type"
+                name="flightType"
                 id="flightType"
                 className="w-full text-xl mt-3 outline-none border-none"
+                onChange={handleFormDataChange}
               >
                 <option value="Economy">Economy</option>
                 <option value="Premium">Premium</option>
@@ -59,7 +66,10 @@ const BookTicketBox = () => {
           </div>
         </div>
       </div>
-      <button className="hover:bg-[#1E293B] bg-[#bebebe] text-black hover:text-white px-5 py-2 mt-5 rounded-lg transition duration-100">
+      <button
+        className="hover:bg-[#1E293B] bg-[#bebebe] text-black hover:text-white px-5 py-2 mt-5 rounded-lg transition duration-100"
+        onClick={handleFlightSearch}
+      >
         Search Flights
       </button>
     </div>
