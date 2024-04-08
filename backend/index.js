@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoute from "./Routes/auth.js";
 import flightRoute from "./Routes/flights.js";
+import bookingRoute from "./Routes/booking.js";
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ const connectDB = async () => {
 
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/flights", flightRoute);
+app.use("/api/v1/bookings", bookingRoute);
 
 app.listen(5000, () => {
   connectDB();

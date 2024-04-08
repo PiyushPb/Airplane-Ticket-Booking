@@ -1,14 +1,9 @@
 import express from "express";
+import { authenticate, restrict } from "../auth/verifyToken.js";
 
-// import {
-//   getFlights,
-//   addAirline,
-//   addFlight,
-// } from "../controller/flightController.js";
+import { getCheckoutSession } from "../controller/bookingController.js";
 
 const router = express.Router();
 
-// router.post("/search", getFlights);
-// router.post("/addAirline", addAirline);
-// router.post("/addFlight", addFlight);
+router.post("/checkout-session/:flightId", authenticate, getCheckoutSession);
 export default router;

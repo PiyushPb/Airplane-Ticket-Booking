@@ -9,6 +9,7 @@ import SignUp from "../page/SignUp";
 import TicketSearchPage from "../page/TicketSearchPage";
 import TicketBooking from "../page/TicketBooking";
 import Ticket from "../page/Ticket";
+import CheckoutPage from "../page/CheckoutPage";
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AppRoutes = () => {
         <Route path="/search" element={<TicketSearchPage />} />
         <Route path="/book/:id" element={<TicketBooking />} />
         <Route path="/ticket" element={<Ticket />} />
+        <Route path="/checkout-page" element={<CheckoutPage />} />
 
         <Route path="/*" element={<ErrorPage />} />
       </Routes>

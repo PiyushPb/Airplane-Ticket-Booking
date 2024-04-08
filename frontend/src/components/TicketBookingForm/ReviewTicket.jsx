@@ -1,6 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
-const ReviewTicket = ({ formData, setCurrentActiveForm, selectedSeats }) => {
+const ReviewTicket = ({
+  formData,
+  setCurrentActiveForm,
+  selectedSeats,
+  handleFlightBooking,
+}) => {
+  const [clientSecretSettings, setClientSecretSettings] = useState({
+    clientSecret: "",
+    loading: true,
+  });
+
   // Check if formData is empty
   if (Object.keys(formData).length === 0) {
     return <p>No passenger data available.</p>;
@@ -223,7 +236,7 @@ const ReviewTicket = ({ formData, setCurrentActiveForm, selectedSeats }) => {
           className={`bg-blue-300 text-white px-10 py-2 rounded-full hover:bg-blue-500 duration-300 ${
             !aggreed || !terms ? "cursor-not-allowed" : ""
           }`}
-          onClick={() => setCurrentActiveForm(2)}
+          onClick={handleFlightBooking}
           disabled={!aggreed || !terms}
         >
           Next

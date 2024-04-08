@@ -24,24 +24,68 @@ const TicketBooking = () => {
   const [currentFlight, setCurrentFlight] = useState({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(BACKENDURL + "/api/v1/flights/getSingleFlight/" + id, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === false) {
-          toast.error(data.message);
-          navigate("/");
-          return;
+  const handleFlightBooking = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    const selectedSeatsArray = Object.entries(selectedSeats).map(
+      ([seat, numbers]) => `${seat}${numbers[0]}`
+    );
+
+    console.log({
+      bookingUsersData: formData,
+      selectedSeats: selectedSeatsArray,
+    });
+
+    try {
+      console.log("activated");
+      const response = await fetch(
+        BACKENDURL + "/api/v1/bookings/checkout-session/" + id,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            bookingUsersData: formData,
+            selectedSeats: selectedSeatsArray,
+          }),
         }
-        console.log(data);
-        setCurrentFlight(data);
-        setLoading(false);
-      });
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      window.location.href = data.session.url;
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setTimeout(() => {
+      fetch(BACKENDURL + "/api/v1/flights/getSingleFlight/" + id, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === false) {
+            toast.error(data.message);
+            navigate("/");
+            return;
+          }
+          console.log(data);
+          setCurrentFlight(data);
+          setLoading(false);
+        });
+    }, 1000);
   }, []);
 
   return (
@@ -80,12 +124,18 @@ const TicketBooking = () => {
                     setCurrentActiveForm={setCurrentActiveForm}
                     selectedSeats={selectedSeats}
                     formData={formData}
+                    price={currentFlight.price}
+                    numberOfPassengers={numberOfPassengers}
+                    handleFlightBooking={handleFlightBooking}
                   />
                 ) : null}
               </div>
             </div>
             <div className="w-full lg:w-[30%] h-fit">
-              <FareSummary />
+              <FareSummary
+                price={currentFlight.price}
+                numberOfPassengers={numberOfPassengers}
+              />
             </div>
           </div>
         )}

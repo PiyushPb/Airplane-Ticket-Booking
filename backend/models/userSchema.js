@@ -19,10 +19,18 @@ const userSchema = new mongoose.Schema({
   },
   bookings: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Booking",
-    }
-  ]
+      uid: {
+        type: String,
+        required: true,
+      },
+      tickets: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Booking",
+        },
+      ],
+    },
+  ],
 });
 
 export default mongoose.model("User", userSchema);
