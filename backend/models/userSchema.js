@@ -19,17 +19,9 @@ const userSchema = new mongoose.Schema({
   },
   bookings: [
     {
-      uid: {
-        type: String,
-        required: true,
-      },
-      tickets: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Booking",
-        },
-      ],
-    },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Ticket",
+    }
   ],
 });
 

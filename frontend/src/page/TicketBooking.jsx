@@ -29,8 +29,14 @@ const TicketBooking = () => {
 
     const token = localStorage.getItem("token");
 
-    const selectedSeatsArray = Object.entries(selectedSeats).map(
-      ([seat, numbers]) => `${seat}${numbers[0]}`
+    const selectedSeatsArray = Object.entries(selectedSeats).reduce(
+      (acc, [row, seats]) => {
+        seats.forEach((seat) => {
+          acc.push(`${row}${seat}`);
+        });
+        return acc;
+      },
+      []
     );
 
     console.log({
