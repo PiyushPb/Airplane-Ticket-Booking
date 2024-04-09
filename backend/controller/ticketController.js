@@ -39,6 +39,7 @@ export const getTicket = async (req, res) => {
         flightsData[flightId] = {
           ...flight.toObject(),
           airlineLogo: airline ? airline.airlineLogo : null,
+          airlineName: airline ? airline.airlineName : null,
           bookings: [],
         };
       }

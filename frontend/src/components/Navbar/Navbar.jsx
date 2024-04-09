@@ -24,19 +24,19 @@ function Navbar() {
         >
           <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
             <li>
-              <a className="hover:text-gray-500" href="#">
-                Products
-              </a>
+              <Link to={"/search"} className="hover:text-gray-500" href="#">
+                Search Flights
+              </Link>
             </li>
             <li>
-              <a className="hover:text-gray-500" href="#">
-                Solution
-              </a>
+              <Link className="hover:text-gray-500" href="#">
+                Search hotels
+              </Link>
             </li>
             <li>
-              <a className="hover:text-gray-500" href="#">
-                Resource
-              </a>
+              <Link className="hover:text-gray-500" href="#">
+                Contact us
+              </Link>
             </li>
           </ul>
         </div>

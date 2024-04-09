@@ -21,7 +21,7 @@ const AppRoutes = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/search" element={<TicketSearchPage />} />
         <Route path="/book/:id" element={<TicketBooking />} />
-        <Route path="/ticket" element={<Ticket />} />
+        <Route path="/ticket/:ticketId" element={<Ticket />} />
         <Route path="/checkout-page" element={<CheckoutPage />} />
 
         <Route path="/*" element={<ErrorPage />} />

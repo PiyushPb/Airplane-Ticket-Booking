@@ -6,6 +6,7 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("user"))
       : null,
   token: localStorage.getItem("token") || null,
+  isUserLoggedIn: localStorage.getItem("token") ? true : false,
 };
 
 export const authContext = createContext(initialState);
@@ -16,18 +17,21 @@ const authReducer = (state, action) => {
       return {
         user: null,
         token: null,
+        isUserLoggedIn: false,
       };
 
     case "LOGIN_SUCCESS":
       return {
         user: action.payload.user,
         token: action.payload.token,
+        isUserLoggedIn: true,
       };
 
     case "LOGOUT":
       return {
         user: null,
         token: null,
+        isUserLoggedIn: false,
       };
     default:
       return state;
@@ -40,6 +44,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(state.user));
     localStorage.setItem("token", state.token);
+    localStorage.setItem("isUserLoggedIn", state.isUserLoggedIn);
   }, [state]);
 
   return (
@@ -47,6 +52,7 @@ export const AuthContextProvider = ({ children }) => {
       value={{
         user: state.user,
         token: state.token,
+        isUserLoggedIn: state.isUserLoggedIn,
         dispatch,
       }}
     >

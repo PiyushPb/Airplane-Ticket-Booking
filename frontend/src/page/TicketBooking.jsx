@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Header from "../components/TicketBookingForm/Header";
 import FormHeader from "../components/TicketBookingForm/FormHeader";
 import TravellerDetail from "../components/TicketBookingForm/TravellerDetail";
 import SeatReservation from "../components/TicketBookingForm/SeatReservation";
 import ReviewTicket from "../components/TicketBookingForm/ReviewTicket";
 import FareSummary from "../components/TicketBookingForm/FareSummary";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { BACKENDURL } from "../Config/Config";
+import { authContext } from "../context/authContext";
 
 import airplaneLoader from "../assets/images/airplaneLoader.gif";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { BACKENDURL } from "../Config/Config";
 
 const TicketBooking = () => {
-  let { id } = useParams();
-  const navigate = useNavigate();
-  const [currentActiveForm, setCurrentActiveForm] = React.useState(0);
+  const { isUserLoggedIn } = useContext(authContext);
+  const history = useNavigate();
 
+  let { id } = useParams();
+  const [currentActiveForm, setCurrentActiveForm] = useState(0);
   const [numberOfPassengers, setNumberOfPassengers] = useState(0);
   const [selectedSeats, setSelectedSeats] = useState({});
   const [formData, setFormData] = useState({});
-
   const [currentFlight, setCurrentFlight] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -82,9 +82,9 @@ const TicketBooking = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status === false) {
-            toast.error(data.message);
-            navigate("/");
+          if (data.success === false) {
+            toast.error("Please log in to book tickets");
+            history("/");
             return;
           }
           console.log(data);
@@ -93,6 +93,12 @@ const TicketBooking = () => {
         });
     }, 1000);
   }, []);
+
+  if (!isUserLoggedIn) {
+    toast.error("Please log in to book tickets");
+    history("/");
+    return null;
+  }
 
   return (
     <div className="px-[30px] md:px-[30px]">
