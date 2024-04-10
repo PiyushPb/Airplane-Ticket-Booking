@@ -5,7 +5,6 @@ import QRScanner from "./qr-reader/QRScanner";
 const VerifyTicket = () => {
   return (
     <div>
-      {/* <QRScan /> */}
       <QRScanner />
     </div>
   );
