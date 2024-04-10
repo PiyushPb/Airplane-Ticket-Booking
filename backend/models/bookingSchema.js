@@ -44,6 +44,10 @@ const bookingSchema = new Schema({
     type: String,
     required: true,
   },
+  passportSizePhoto: {
+    type: String,
+    required: true,
+  },
 });
 
 export default mongoose.model("Booking", bookingSchema);

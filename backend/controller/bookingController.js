@@ -13,7 +13,6 @@ export const getCheckoutSession = async (req, res) => {
       "airline"
     );
 
-    console.log(flight);
 
     if (!flight) {
       return res
@@ -29,7 +28,6 @@ export const getCheckoutSession = async (req, res) => {
 
     const { bookingUsersData, selectedSeats } = req.body;
 
-    console.log(selectedSeats, "selectedSeats");
 
     const bookingUID = generateUID();
 
@@ -45,7 +43,6 @@ export const getCheckoutSession = async (req, res) => {
       const userData = bookingUsersData[`passenger${i}`];
       const seat = selectedSeats[i - 1];
 
-      console.log(`Passenger ${i} Seat:`, seat);
 
       const booking = new Booking({
         flight: flight._id,
