@@ -10,12 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@babel/runtime": "^7.24.4",
     "@stripe/react-stripe-js": "^2.6.2",
     "@stripe/stripe-js": "^3.2.0",
+    "@yudiel/react-qr-scanner": "^2.0.0-beta.3",
     "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
+    "react-qr-scanner": "^1.0.0-alpha.11",
     "react-router-dom": "^6.22.3",
     "react-toastify": "^10.0.5",
     "stripe": "^14.24.0",

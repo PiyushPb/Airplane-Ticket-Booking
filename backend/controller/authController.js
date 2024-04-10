@@ -68,6 +68,7 @@ export const loginUser = async (req, res) => {
     const payload = {
       userId: user._id,
       email: user.email,
+      isAdmin: user.isAdmin,
     };
 
     // Create JWT token
@@ -77,6 +78,7 @@ export const loginUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
     };
 
     return res

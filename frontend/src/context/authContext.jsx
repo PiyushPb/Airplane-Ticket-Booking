@@ -6,6 +6,7 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("user"))
       : null,
   token: localStorage.getItem("token") || null,
+  isAdmin: localStorage.getItem("isAdmin") || null,
   isUserLoggedIn: localStorage.getItem("token") ? true : false,
 };
 
@@ -17,6 +18,7 @@ const authReducer = (state, action) => {
       return {
         user: null,
         token: null,
+        isAdmin: null,
         isUserLoggedIn: false,
       };
 
@@ -24,6 +26,7 @@ const authReducer = (state, action) => {
       return {
         user: action.payload.user,
         token: action.payload.token,
+        isAdmin: action.payload.isAdmin,
         isUserLoggedIn: true,
       };
 
@@ -31,6 +34,7 @@ const authReducer = (state, action) => {
       return {
         user: null,
         token: null,
+        isAdmin: null,
         isUserLoggedIn: false,
       };
     default:
@@ -44,6 +48,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(state.user));
     localStorage.setItem("token", state.token);
+    localStorage.setItem("isAdmin", state.isAdmin);
     localStorage.setItem("isUserLoggedIn", state.isUserLoggedIn);
   }, [state]);
 
@@ -52,6 +57,7 @@ export const AuthContextProvider = ({ children }) => {
       value={{
         user: state.user,
         token: state.token,
+        isAdmin: state.isAdmin,
         isUserLoggedIn: state.isUserLoggedIn,
         dispatch,
       }}

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { authContext } from "../context/authContext";
 
-const Login = () => {
+const AdminLogin = () => {
   const navigate = useNavigate();
   const { dispatch } = useContext(authContext);
   const [formData, setFormData] = useState({
@@ -41,9 +41,9 @@ const Login = () => {
     }
 
     try {
-      const loginURL = BACKENDURL + "/api/v1/auth/login";
+      const SignUpURL = BACKENDURL + "/api/v1/auth/login";
 
-      const response = await fetch(loginURL, {
+      const response = await fetch(SignUpURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,8 +58,6 @@ const Login = () => {
         return;
       }
 
-      console.log(data);
-
       console.log(response.ok);
 
       if (response.ok) {
@@ -69,7 +67,7 @@ const Login = () => {
           type: "LOGIN_SUCCESS",
           payload: {
             user: data.data,
-            isAdmin: data.data.isAdmin,
+            idAdmin: data.isAdmin,
             token: data.token,
           },
         });
@@ -126,12 +124,6 @@ const Login = () => {
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start"></div>
-                <Link
-                  to={"/forgotPassword"}
-                  className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
-                >
-                  Forgot password?
-                </Link>
               </div>
               <button
                 onClick={handleLogin}
@@ -139,15 +131,6 @@ const Login = () => {
               >
                 Login
               </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don't have an account yet?{" "}
-                <Link
-                  to={"/signup"}
-                  className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                >
-                  Sign up
-                </Link>
-              </p>
             </form>
           </div>
         </div>
@@ -156,4 +139,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

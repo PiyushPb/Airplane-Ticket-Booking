@@ -133,3 +133,14 @@ export const getSingleFlight = async (req, res) => {
     res.status(500).json({ status: false, message: "Internal server error" });
   }
 };
+
+export const getAllAirlines = (req, res) => {
+  Airline.find({})
+    .then((airlines) => {
+      res.status(200).json(airlines);
+    })
+    .catch((error) => {
+      console.error("Error fetching airlines:", error);
+      res.status(500).json({ message: "Internal server error" });
+    });
+};

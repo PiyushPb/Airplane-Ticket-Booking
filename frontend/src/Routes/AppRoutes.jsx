@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import Home from "../page/Home";
@@ -10,6 +10,18 @@ import TicketSearchPage from "../page/TicketSearchPage";
 import TicketBooking from "../page/TicketBooking";
 import Ticket from "../page/Ticket";
 import CheckoutPage from "../page/CheckoutPage";
+import Admin from "../admin/Admin";
+import AdminLogin from "../admin/AdminLogin";
+import AddAirline from "../admin/AddAirline";
+import AddFlight from "../admin/AddFlight";
+import VerifyTicket from "../admin/VerifyTicket";
+
+// ProtectedRoute component to handle admin-only routes
+const ProtectedRoute = ({ element: Element, ...rest }) => {
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
+
+  return isAdmin ? <Element {...rest} /> : <Navigate to="/" replace />;
+};
 
 const AppRoutes = () => {
   return (
@@ -24,7 +36,15 @@ const AppRoutes = () => {
         <Route path="/ticket/:ticketId" element={<Ticket />} />
         <Route path="/checkout-page" element={<CheckoutPage />} />
 
-        <Route path="/*" element={<ErrorPage />} />
+        {/* Protected admin routes */}
+        <Route path="/admin" element={<ProtectedRoute element={Admin} />} />
+        <Route path="/adminLogin" element={<AdminLogin />} />
+        <Route path="/admin/add-airline" element={<AddAirline />} />
+        <Route path="/admin/add-flight" element={<AddFlight />} />
+        <Route path="/admin/verify-ticket" element={<VerifyTicket />} />
+
+        {/* Fallback route for unknown paths */}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </>
