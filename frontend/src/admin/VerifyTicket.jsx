@@ -4,7 +4,7 @@ import QRScanner from "./qr-reader/QRScanner";
 
 const VerifyTicket = () => {
   return (
-    <div>
+    <div className="px-[30px] md:px-[30px]">
       <QRScanner />
     </div>
   );

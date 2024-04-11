@@ -1,4 +1,7 @@
 import React, { useState, useRef } from "react";
+import { toast } from "react-toastify";
+
+import { BACKENDURL } from "../../Config/Config";
 
 const QRScanner = () => {
   const [mediaStream, setMediaStream] = useState(null);
@@ -62,19 +65,28 @@ const QRScanner = () => {
       const formData = new FormData();
       formData.append("image", capturedImage, "captured_image.png");
 
-      const response = await fetch("http://localhost:5000/api/v1/decode-qr", {
+      const response = await fetch(BACKENDURL + "/api/v1/decode-qr", {
         method: "POST",
         body: formData,
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        if (data.status === true) {
+          if (data.data.startsWith("http://localhost:5173/verify-ticket/")) {
+            const url = data.data;
+            window.open(url, "_blank");
+          } else {
+            toast.error("INVALID URL");
+          }
+        } else {
+          toast.error(data.message);
+        }
       } else {
-        console.error("Failed to verify ticket:", response.statusText);
+        toast.error("Failed to verify ticket");
       }
     } catch (error) {
-      console.error("Error verifying ticket:", error);
+      toast.error("Error verifying ticket:", error);
     }
   };
 
@@ -84,10 +96,15 @@ const QRScanner = () => {
   };
 
   return (
-    <div>
+    <div className="mt-10">
       {!capturedImage && (
         <>
-          <button onClick={startCamera}>Start Camera</button>
+          <button
+            className="px-5 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 duration-300 "
+            onClick={startCamera}
+          >
+            Start Camera
+          </button>
           <br />
           <video
             ref={videoRef}
@@ -96,7 +113,12 @@ const QRScanner = () => {
             style={{ maxWidth: "100%" }}
           />
           <br />
-          <button onClick={captureImage}>Capture</button>
+          <button
+            className="px-5 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 duration-300 "
+            onClick={captureImage}
+          >
+            Capture
+          </button>
         </>
       )}
       {capturedImage && (
@@ -107,8 +129,18 @@ const QRScanner = () => {
             style={{ maxWidth: "100%" }}
           />
           <br />
-          <button onClick={verifyTicket}>Verify Ticket</button>
-          <button onClick={recaptureImage}>Recapture</button>
+          <button
+            className="px-5 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 duration-300 "
+            onClick={verifyTicket}
+          >
+            Verify Ticket
+          </button>
+          <button
+            className="px-5 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 duration-300 ml-5"
+            onClick={recaptureImage}
+          >
+            Recapture
+          </button>
         </>
       )}
       <canvas ref={canvasRef} style={{ display: "none" }}></canvas>

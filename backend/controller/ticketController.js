@@ -57,3 +57,43 @@ export const getTicket = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+export const getSingleTicketForVerification = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const booking = await Booking.findById(id);
+
+    if (!booking) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Ticket not found" });
+    }
+
+    const flight = await Flight.findById(booking.flight);
+
+    if (!flight) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Flight not found" });
+    }
+
+    const airline = await Airline.findById(flight.airline);
+
+    if (!airline) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Airline not found" });
+    }
+
+    res.status(200).json({
+      ...flight.toObject(),
+      airlineLogo: airline.airlineLogo,
+      airlineName: airline.airlineName,
+      bookings: [booking.toObject()],
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};

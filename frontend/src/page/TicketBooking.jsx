@@ -9,7 +9,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { BACKENDURL } from "../Config/Config";
 import { authContext } from "../context/authContext";
-
+import uploadImageToCloudinary from "../utils/uploadImageToCloudinary"; // Import the image upload function
 import airplaneLoader from "../assets/images/airplaneLoader.gif";
 
 const TicketBooking = () => {
@@ -39,13 +39,30 @@ const TicketBooking = () => {
       []
     );
 
-    console.log({
-      bookingUsersData: formData,
-      selectedSeats: selectedSeatsArray,
-    });
-
     try {
-      console.log("activated");
+      for (const passengerId in formData) {
+        const passenger = formData[passengerId];
+        if (passenger.passportSizePhoto) {
+          // Upload image to Cloudinary
+          const cloudinaryResponse = await uploadImageToCloudinary(
+            passenger.passportSizePhoto
+          );
+          console.log(
+            "Image uploaded successfully:",
+            cloudinaryResponse.secure_url
+          );
+          // Update formData with Cloudinary URL
+          formData[passengerId].passportSizePhoto =
+            cloudinaryResponse.secure_url;
+        }
+      }
+
+      console.log({
+        bookingUsersData: formData,
+        selectedSeats: selectedSeatsArray,
+      });
+
+      // Send booking data to the backend
       const response = await fetch(
         BACKENDURL + "/api/v1/bookings/checkout-session/" + id,
         {

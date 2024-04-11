@@ -1,4 +1,5 @@
 import User from "../models/userSchema.js";
+import Ticket from "../models/ticketSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -79,6 +80,7 @@ export const loginUser = async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      profilePic: user.profilePic,
     };
 
     return res
@@ -87,5 +89,27 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     console.error("Login error:", error); // Add this line for logging
     return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+export const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const tickets = user.bookings;
+    const ticketObjects = [];
+
+    for (let i = 0; i < tickets.length; i++) {
+      const ticket = await Ticket.findById(tickets[i]);
+      ticketObjects.push(ticket); // Add each ticket to the array
+    }
+
+    return res.status(200).json({ user, tickets: ticketObjects }); // Include tickets array in the response
+  } catch (error) {
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };

@@ -8,8 +8,20 @@ const PassengerDataForm = ({
   formData,
 }) => {
   const handleChange = (e, field) => {
-    const { value } = e.target;
-    handlePassengerDataChange(passengerNumber, { [field]: value });
+    if (e.target.type === "file") {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const fileData = event.target.result;
+          handlePassengerDataChange(passengerNumber, { [field]: fileData });
+        };
+        reader.readAsDataURL(file);
+      }
+    } else {
+      const { value } = e.target;
+      handlePassengerDataChange(passengerNumber, { [field]: value });
+    }
   };
 
   return (
@@ -157,6 +169,23 @@ const PassengerDataForm = ({
               value={formData.email}
               className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
               onChange={(e) => handleChange(e, "email")}
+            />
+          </div>
+        </div>
+        {/* PASSPORT SIZE PHOTO */}
+        <div className="flex flex-col gap-5 md:flex-row md:gap-5 w-full py-3">
+          <div className="w-full md:w-1/2">
+            <label
+              htmlFor={`passportSizePhoto-${passengerNumber}`}
+              className="block text-sm"
+            >
+              Passport Size Photo
+            </label>
+            <input
+              type="file"
+              id={`passportSizePhoto-${passengerNumber}`}
+              className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
+              onChange={(e) => handleChange(e, "passportSizePhoto")}
             />
           </div>
         </div>

@@ -7,6 +7,8 @@ function Navbar() {
   const { user, token } = useContext(authContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const userData = JSON.parse(localStorage.getItem("user"));
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -15,7 +17,7 @@ function Navbar() {
     <header className="bg-white px-[30px] md:px-[30px]">
       <nav className="flex justify-between items-center w-full max-w-[1800px] mx-auto mt-5 z-[10]">
         <Link to={"/"}>
-          <div className="font-bold text-3xl">Logo</div>
+          <div className="font-bold text-3xl">ABVS</div>
         </Link>
         <div
           className={`nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 ${
@@ -43,7 +45,13 @@ function Navbar() {
         <div className="flex items-center gap-6">
           {token && user ? (
             // TODO: add user profile
-            <p>test</p>
+            <Link to={"/profile"}>
+              <img
+                src={userData.profilePic}
+                alt=""
+                className="w-[50px] h-[50px] rounded-full"
+              />
+            </Link>
           ) : (
             <Link to={"/login"}>
               <button className="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec]">

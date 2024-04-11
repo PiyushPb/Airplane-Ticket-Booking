@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import uploadImageToCloudinary from "../utils/uploadImageToCloudinary";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AddAirline = () => {
+  const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [previewURL, setPreviewURL] = useState(null);
   const [airlineName, setAirlineName] = useState("");
@@ -13,17 +16,17 @@ const AddAirline = () => {
       setImage(file);
       setPreviewURL(URL.createObjectURL(file));
     } else {
-      alert("Please upload a PNG image.");
+      toast.error("Please upload a PNG image.");
     }
   };
 
   const handleUpload = async () => {
-    if (!image) {
-      alert("Please upload an image.");
+    if (!airlineName) {
+      toast.error("Please enter the airline name.");
       return;
     }
-    if (!airlineName) {
-      alert("Please enter the airline name.");
+    if (!image) {
+      toast.error("Please upload an image.");
       return;
     }
 
@@ -43,11 +46,11 @@ const AddAirline = () => {
         airlineData
       );
 
-      console.log("Airline added:", response.data);
-      // Add logic to handle response if needed
+      toast("Airline added:", response.data);
+      navigate("/admin/");
     } catch (error) {
       console.error("Error uploading image:", error);
-      alert("Error uploading image. Please try again.");
+      toast.error("Error uploading image. Please try again.");
     }
   };
 

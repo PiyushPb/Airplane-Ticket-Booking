@@ -42,9 +42,9 @@ app.post("/api/v1/decode-qr", upload.single("image"), async (req, res) => {
     const imageData = req.file.buffer;
     const qrData = await decodeQRFromImage(imageData);
     if (qrData) {
-      res.json({ qrData });
+      res.json({ status: true, data: qrData });
     } else {
-      res.status(404).json({ message: "No QR code detected" });
+      res.status(404).json({ status: false, message: "No QR code detected" });
     }
   } catch (error) {
     console.error("Error decoding QR code:", error);

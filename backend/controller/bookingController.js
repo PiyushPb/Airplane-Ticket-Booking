@@ -13,7 +13,6 @@ export const getCheckoutSession = async (req, res) => {
       "airline"
     );
 
-
     if (!flight) {
       return res
         .status(404)
@@ -27,7 +26,6 @@ export const getCheckoutSession = async (req, res) => {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
     const { bookingUsersData, selectedSeats } = req.body;
-
 
     const bookingUID = generateUID();
 
@@ -43,7 +41,6 @@ export const getCheckoutSession = async (req, res) => {
       const userData = bookingUsersData[`passenger${i}`];
       const seat = selectedSeats[i - 1];
 
-
       const booking = new Booking({
         flight: flight._id,
         user: user._id,
@@ -55,6 +52,7 @@ export const getCheckoutSession = async (req, res) => {
         state: userData.state,
         phoneNumber: userData.phoneNumber,
         email: userData.email,
+        passportSizePhoto: userData.passportSizePhoto,
       });
 
       const savedBooking = await booking.save();

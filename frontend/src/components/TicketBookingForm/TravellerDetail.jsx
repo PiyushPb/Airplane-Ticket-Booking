@@ -28,6 +28,7 @@ const TravellerDetail = ({
     email: "Email",
     dob: "Date of Birth",
     passportNumber: "Passport Number",
+    passportSizePhoto: "Passport Size Photo",
   };
 
   const validatePassengerData = (formData) => {
@@ -85,7 +86,9 @@ const TravellerDetail = ({
         </button>
         <button
           className="bg-blue-300 text-white px-10 py-2 rounded-full hover:bg-blue-500 duration-300"
-          onClick={() => validatePassengerData(formData)}
+          onClick={
+            (() => validatePassengerData(formData))
+          }
         >
           Next
         </button>

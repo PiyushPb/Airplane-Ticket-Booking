@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKENDURL } from "../Config/Config";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AddFlight = () => {
+  const navigate = useNavigate();
   const [airlineData, setAirlineData] = useState([]);
   const [formData, setFormData] = useState({
     from: "",
@@ -41,17 +44,32 @@ const AddFlight = () => {
         price: formData.price,
       };
 
+      if (
+        !formData.from ||
+        !formData.to ||
+        !formData.departDate ||
+        !formData.arriveDate ||
+        !formData.departTime ||
+        !formData.arriveTime ||
+        !formData.airline ||
+        !formData.price
+      ) {
+        toast.error("Please fill all the fields");
+        return;
+      }
+
       // Send data to backend API
       const response = await axios.post(
         `${BACKENDURL}/api/v1/flights/addFlight`,
         flightData
       );
 
-      console.log("Flight added:", response.data);
+      toast("Flight added:", response.data);
+      NavigationPreloadManager("/admin/");
       // Add logic to handle response if needed
     } catch (error) {
       console.error("Error adding flight:", error);
-      alert("Error adding flight. Please try again.");
+      toast.error("Error adding flight. Please try again.");
     }
   };
 

@@ -185,7 +185,7 @@ const TicketContainer = ({ ticketData, bookingsData }) => {
             <div className="w-full bg-gray-100 rounded-[15px] p-3 flex justify-center items-center">
               {/* TODO: add final qr ticketpath */}
               <img
-                src={`https://quickchart.io/qr?text=http://localhost:5173/ticketData/${bookingsData._id}`}
+                src={`https://quickchart.io/qr?text=http://localhost:5173/verify-ticket/${bookingsData._id}`}
                 alt=""
                 className="w-[100px] h-[100px] object-cover"
               />

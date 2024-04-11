@@ -173,6 +173,21 @@ const ReviewTicket = ({
                     />
                   </div>
                 </div>
+
+                {/* Image */}
+                <div className="w-full md:w-1/2">
+                  <label
+                    htmlFor={`passportSizePhoto_${index}`}
+                    className="block text-sm"
+                  >
+                    Passport Size Photo
+                  </label>
+                  <img
+                    src={passenger.passportSizePhoto} // Assuming passportSizePhoto contains the image data URL
+                    alt={`Passport Size Photo of Passenger ${index + 1}`}
+                    className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
+                  />
+                </div>
               </div>
             </div>
           );
