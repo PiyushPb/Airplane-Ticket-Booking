@@ -104,10 +104,10 @@ const SeatReservation = ({
         key={seat}
         className={`flex justify-center items-center w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] bg-white rounded-md cursor-pointer transition duration-200 ${
           selectedSeats[row] && selectedSeats[row].includes(seat)
-            ? "text-white bg-blue-500"
+            ? "text-white bg-red-400"
             : bookedSeats.includes(row + seat)
             ? "bg-gray-400 cursor-not-allowed lg:hover:bg-gray-500"
-            : "lg:hover:bg-blue-500 lg:hover:text-white"
+            : "lg:hover:bg-red-400 lg:hover:text-white"
         }`}
         onClick={() => handleSeatClick(row, seat)}
       >

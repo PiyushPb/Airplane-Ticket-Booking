@@ -9,6 +9,9 @@ function Navbar() {
 
   const userData = JSON.parse(localStorage.getItem("user"));
 
+  const profilePic =
+    "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png";
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -47,7 +50,7 @@ function Navbar() {
             // TODO: add user profile
             <Link to={"/profile"}>
               <img
-                src={userData.profilePic}
+                src={profilePic}
                 alt=""
                 className="w-[50px] h-[50px] rounded-full"
               />
