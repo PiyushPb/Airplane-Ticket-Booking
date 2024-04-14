@@ -113,3 +113,38 @@ export const getUser = async (req, res) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+export const updateProfile = async (req, res) => {
+  const { name, profilePic } = req.body;
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update user's name if provided
+    if (name) {
+      user.name = name;
+    }
+
+    // Update user's profile picture if provided
+    if (profilePic) {
+      user.profilePic = profilePic;
+    }
+
+    // Save the updated user document
+    await user.save();
+
+    // Send a success response
+    return res
+      .status(200)
+      .json({ message: "Profile updated successfully", user });
+  } catch (error) {
+    // Handle errors
+    console.error("Profile update error:", error);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+};

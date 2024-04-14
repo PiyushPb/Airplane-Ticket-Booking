@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 import { authContext } from "../../context/authContext";
 
 function Navbar() {
+  const isAdmin = true ? localStorage.getItem("isAdmin") === "true" : false;
+  console.log(isAdmin);
+
+  const isUserLoggedIn = true
+    ? localStorage.getItem("token") !== "null"
+    : false;
+  console.log(isUserLoggedIn);
+
   const { user, token } = useContext(authContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -46,9 +54,8 @@ function Navbar() {
           </ul>
         </div>
         <div className="flex items-center gap-6">
-          {token && user ? (
-            // TODO: add user profile
-            <Link to={"/profile"}>
+          {isUserLoggedIn ? (
+            <Link to={isAdmin ? "/admin" : "/profile"}>
               <img
                 src={profilePic}
                 alt=""
