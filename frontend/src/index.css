@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* e:/final year projects/Airplane Ticket Booking/frontend/src/index.css */
+@layer components {
+  .seatContainer {
+    @apply flex justify-center items-center w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] bg-white rounded-md cursor-pointer transition duration-200;
+  }
+
+  .selectedSeats {
+    @apply text-white bg-blue-500;
+  }
+
+  .bookedSeats {
+    @apply bg-gray-400 cursor-not-allowed lg:hover:bg-gray-500;
+  }
+
+  .seatsHover {
+    @apply md:hover:bg-blue-400 md:hover:text-white;
+  }
+}

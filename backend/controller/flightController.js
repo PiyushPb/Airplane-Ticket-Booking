@@ -78,13 +78,13 @@ export const addFlight = async (req, res) => {
     arriveDate,
     departTime,
     arriveTime,
-    airlineUid, // Change to airlineUid to match the key in req.body
+    airlineUid,
     price,
   } = req.body;
 
   try {
     // Find the airline document using the provided UID
-    const airline = await Airline.findOne({ airlineUid });
+    const airline = await Airline.findById(airlineUid);
 
     if (!airline) {
       return res.status(404).json({ message: "Airline not found" });

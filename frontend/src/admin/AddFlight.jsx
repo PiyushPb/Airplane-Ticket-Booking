@@ -14,7 +14,7 @@ const AddFlight = () => {
     arriveDate: "",
     departTime: "",
     arriveTime: "",
-    airline: "",
+    airlineUid: "",
     price: "",
   });
 
@@ -40,7 +40,7 @@ const AddFlight = () => {
         arriveDate: formData.arriveDate,
         departTime: formData.departTime,
         arriveTime: formData.arriveTime,
-        airline: formData.airline,
+        airlineUid: formData.airlineUid,
         price: formData.price,
       };
 
@@ -51,12 +51,14 @@ const AddFlight = () => {
         !formData.arriveDate ||
         !formData.departTime ||
         !formData.arriveTime ||
-        !formData.airline ||
+        !formData.airlineUid ||
         !formData.price
       ) {
         toast.error("Please fill all the fields");
         return;
       }
+
+      console.log("Flight data:", flightData);
 
       // Send data to backend API
       const response = await axios.post(
@@ -64,8 +66,10 @@ const AddFlight = () => {
         flightData
       );
 
-      toast("Flight added:", response.data);
-      NavigationPreloadManager("/admin/");
+      console.log("Response data:", response.data);
+
+      toast.success("Flight added");
+      navigate("/admin/");
       // Add logic to handle response if needed
     } catch (error) {
       console.error("Error adding flight:", error);
@@ -81,7 +85,7 @@ const AddFlight = () => {
             <label className="block text-sm">Select airlines</label>
             <select
               className="border-[1px] border-gray-200 rounded-md px-3 outline-none py-2 w-full"
-              onChange={(e) => handleChange(e, "airline")}
+              onChange={(e) => handleChange(e, "airlineUid")}
             >
               <option value="">Select Airline</option>
               {airlineData.map((item) => (

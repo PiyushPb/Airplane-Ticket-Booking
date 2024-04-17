@@ -102,12 +102,12 @@ const SeatReservation = ({
     return seats[row].map((seat) => (
       <div
         key={seat}
-        className={`flex justify-center items-center w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] bg-white rounded-md cursor-pointer transition duration-200 ${
+        className={`seatContainer ${
           selectedSeats[row] && selectedSeats[row].includes(seat)
-            ? "text-white bg-blue-500"
+            ? "selectedSeats"
             : bookedSeats.includes(row + seat)
-            ? "bg-gray-400 cursor-not-allowed lg:hover:bg-gray-500"
-            : "lg:hover:bg-blue-500 lg:hover:text-white"
+            ? "bookedSeats"
+            : "seatsHover"
         }`}
         onClick={() => handleSeatClick(row, seat)}
       >

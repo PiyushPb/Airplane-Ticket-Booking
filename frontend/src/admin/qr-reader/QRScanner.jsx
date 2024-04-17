@@ -1,17 +1,38 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 
 import { BACKENDURL } from "../../Config/Config";
 
 const QRScanner = () => {
   const [mediaStream, setMediaStream] = useState(null);
+  const [selectedCamera, setSelectedCamera] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
   const videoRef = useRef();
   const canvasRef = useRef();
 
+  useEffect(() => {
+    startCamera();
+  }, [selectedCamera]);
+
   const startCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      let devices = await navigator.mediaDevices.enumerateDevices();
+      let videoDevices = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+
+      if (videoDevices.length === 0) {
+        toast.error("No camera available.");
+        return;
+      }
+
+      const constraints = {
+        video: {
+          facingMode: selectedCamera === "user" ? "user" : "environment",
+        },
+      };
+
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
       videoRef.current.srcObject = stream;
       setMediaStream(stream);
     } catch (err) {
@@ -73,7 +94,9 @@ const QRScanner = () => {
       if (response.ok) {
         const data = await response.json();
         if (data.status === true) {
-          if (data.data.startsWith("http://localhost:5173/verify-ticket/")) {
+          if (
+            data.data.startsWith("https://abvssystem.web.app/verify-ticket/")
+          ) {
             const url = data.data;
             window.open(url, "_blank");
           } else {
@@ -95,6 +118,11 @@ const QRScanner = () => {
     startCamera();
   };
 
+  const handleCameraChange = (deviceId) => {
+    setSelectedCamera(deviceId);
+    stopCamera();
+  };
+
   return (
     <div className="mt-10">
       {!capturedImage && (
@@ -106,6 +134,16 @@ const QRScanner = () => {
             Start Camera
           </button>
           <br />
+          <div>
+            <span>Select Camera: </span>
+            {mediaStream && (
+              <select onChange={(e) => handleCameraChange(e.target.value)}>
+                <option value="">Default</option>
+                <option value="environment">Back Camera</option>
+                <option value="user">Front Camera</option>
+              </select>
+            )}
+          </div>
           <video
             ref={videoRef}
             autoPlay

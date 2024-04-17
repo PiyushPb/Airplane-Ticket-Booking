@@ -7,7 +7,7 @@ const initialState = {
       : null,
   token: localStorage.getItem("token") || null,
   isAdmin: localStorage.getItem("isAdmin") || null,
-  isUserLoggedIn: localStorage.getItem("token") !== null ? true : false,
+  isUserLoggedIn: true ? localStorage.getItem("token") !== null : false,
 };
 
 export const authContext = createContext(initialState);

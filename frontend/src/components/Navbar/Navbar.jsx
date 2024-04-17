@@ -4,10 +4,21 @@ import { Link } from "react-router-dom";
 import { authContext } from "../../context/authContext";
 
 function Navbar() {
+  const isAdmin = true ? localStorage.getItem("isAdmin") === "true" : false;
+  console.log(isAdmin);
+
+  const isUserLoggedIn = true
+    ? localStorage.getItem("token") !== "null"
+    : false;
+  console.log(isUserLoggedIn);
+
   const { user, token } = useContext(authContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const userData = JSON.parse(localStorage.getItem("user"));
+
+  const profilePic =
+    "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png";
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -43,11 +54,10 @@ function Navbar() {
           </ul>
         </div>
         <div className="flex items-center gap-6">
-          {token && user ? (
-            // TODO: add user profile
-            <Link to={"/profile"}>
+          {isUserLoggedIn ? (
+            <Link to={isAdmin ? "/admin" : "/profile"}>
               <img
-                src={userData.profilePic}
+                src={profilePic}
                 alt=""
                 className="w-[50px] h-[50px] rounded-full"
               />
