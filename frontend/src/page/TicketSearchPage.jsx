@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import BookTicketBox from "../components/BookTicketBox";
 import SearchedFlightCards from "../components/Card/SearchedFlightCards";
-
 import { toast } from "react-toastify";
 import { BACKENDURL } from "../Config/Config";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const TicketSearchPage = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+
   const [formData, setFormData] = useState({
-    from: "",
-    to: "",
-    departDate: "",
+    from: searchParams.get("from") || "",
+    to: searchParams.get("to") || "",
+    departDate: searchParams.get("departDate") || "",
     flightType: "Economy",
   });
 
@@ -66,6 +69,7 @@ const TicketSearchPage = () => {
   return (
     <div className="px-[30px] md:px-[30px] max-w-[1400px] mx-auto">
       <BookTicketBox
+        formData={formData}
         handleFormDataChange={handleFormDataChange}
         handleFlightSearch={handleFlightSearch}
       />
@@ -75,7 +79,11 @@ const TicketSearchPage = () => {
       {searchedFlights.length > 0 ? (
         <div className="flex justify-center items-center gap-5 flex-wrap w-full">
           {searchedFlights.map((flight, index) => (
-            <Link to={`/book/${flight._id}`} key={index} className="lg:w-full w-fit">
+            <Link
+              to={`/book/${flight._id}`}
+              key={index}
+              className="lg:w-full w-fit"
+            >
               <SearchedFlightCards key={index} flight={flight} />
             </Link>
           ))}

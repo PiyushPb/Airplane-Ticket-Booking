@@ -1,10 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const BookTicketBox = ({
-  formData,
-  handleFormDataChange,
-  handleFlightSearch,
-}) => {
+const HomeTicketBookingBox = () => {
+  const navigate = useNavigate();
+
+  const navToSearchPage = () => {
+    const from = document.querySelector('input[name="from"]').value;
+    const to = document.querySelector('input[name="to"]').value;
+    const departDate = document.querySelector('input[name="departDate"]').value;
+    navigate(`/search?from=${from}&to=${to}&departDate=${departDate}`);
+  };
+
   return (
     <div className="py-[50px] max-w-[1400px] mx-auto">
       <div className="flex flex-col ">
@@ -14,7 +20,7 @@ const BookTicketBox = ({
             <label htmlFor="oneWay">One way</label>
           </div>
           <div className="flex justify-center items-center gap-2">
-            <input type="radio" name="ticketType" id="return" defaultChecked />
+            <input type="radio" name="ticketType" id="return" />
             <label htmlFor="return">Return</label>
           </div>
         </div>
@@ -26,9 +32,8 @@ const BookTicketBox = ({
                 name="from"
                 type="text"
                 placeholder="Delhi"
-                value={formData.from}
                 className="outline-none text-[30px] max-w-[300px]"
-                onChange={handleFormDataChange}
+                // onChange={handleFormDataChange}
               />
             </div>
             <div className="flex flex-col p-5 border-t-[1px] xl:border-l-[1px] xl:border-t-0 border-gray-300">
@@ -36,10 +41,9 @@ const BookTicketBox = ({
               <input
                 name="to"
                 type="text"
-                value={formData.to}
                 placeholder="Mumbai"
                 className="outline-none text-[30px] max-w-[300px]"
-                onChange={handleFormDataChange}
+                // onChange={handleFormDataChange}
               />
             </div>
           </div>
@@ -49,9 +53,8 @@ const BookTicketBox = ({
               <input
                 name="departDate"
                 type="date"
-                value={formData.departDate}
                 className="outline-none text-[20px] sm:text-[30px] w-full"
-                onChange={handleFormDataChange}
+                // onChange={handleFormDataChange}
               />
             </div>
           </div>
@@ -62,7 +65,7 @@ const BookTicketBox = ({
                 name="flightType"
                 id="flightType"
                 className="w-full text-xl mt-3 outline-none border-none"
-                onChange={handleFormDataChange}
+                // onChange={handleFormDataChange}
               >
                 <option value="Economy">Economy</option>
                 <option value="Premium">Premium</option>
@@ -75,7 +78,7 @@ const BookTicketBox = ({
       </div>
       <button
         className="hover:bg-[#1E293B] bg-[#bebebe] text-black hover:text-white px-5 py-2 mt-5 rounded-lg transition duration-100"
-        onClick={handleFlightSearch}
+        onClick={navToSearchPage}
       >
         Search Flights
       </button>
@@ -83,4 +86,4 @@ const BookTicketBox = ({
   );
 };
 
-export default BookTicketBox;
+export default HomeTicketBookingBox;
